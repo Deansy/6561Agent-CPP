@@ -1,4 +1,4 @@
-#include "Tile.h";
+#include "Tile.h"
 
 Tile::Tile(TileColor tileColor, int xPos, int yPos) {
 	this->tileColor = tileColor;

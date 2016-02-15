@@ -1,5 +1,8 @@
 #include "Board.h"
 
+// TODO: Bring over all comments
+// TODO: Test
+
 std::vector<Board::MOVE> Board::getSlides() {
 	std::vector <Board::MOVE> validSlides;
 
@@ -323,20 +326,25 @@ void Board::mergeRight() {
 }
 
 void Board::printBoard(bool errorPrint) {
-	if (errorPrint) {
+    static std::string ANSI_RESET = "\u001B[0m";
+    static std::string ANSI_RED = "\u001B[31m";
+    static std::string ANSI_BLUE = "\u001B[34m";
+    static std::string ANSI_BLACK = "\u001B[30m";
 
+	if (errorPrint) {
+		// TODO: Implement
 	}
 	else {
 		for (int x = 0; x < 4; x++) {
 			for (int y = 0; y < 4; y++) {
 				if (board[x][y].tileColor == Tile::TileColor::BLUE) {
-					std::cout << ANSI_BLUE << board[x][y].value << " " << ANSI_RESET;// << std::endl;
+					std::cout << ANSI_BLUE << " " << board[x][y].value << " " << ANSI_RESET;// << std::endl;
 				}
 				else if (board[x][y].tileColor == Tile::TileColor::GREY) {
-					std::cout << ANSI_BLACK << board[x][y].value << " " << ANSI_RESET;// << std::endl;
+					std::cout << ANSI_BLACK << " " << board[x][y].value << " " << ANSI_RESET;// << std::endl;
 				}
 				else if (board[x][y].tileColor == Tile::TileColor::RED) {
-					std::cout << ANSI_RED << board[x][y].value << " " << ANSI_RESET;// << std::endl;
+					std::cout << ANSI_RED << " " << board[x][y].value << " " << ANSI_RESET;// << std::endl;
 				}
 				else {
 					std::cout << "0 ";
@@ -348,9 +356,75 @@ void Board::printBoard(bool errorPrint) {
 	}
 }
 
+std::vector<std::pair<Board::MOVE , Board>> Board::getSlidesWithBoard() {
+    std::vector<std::pair<Board::MOVE , Board>> validSlidesWithBoard;
+
+    Board b = Board(this);
+    b.slideUp();
+
+    if (!(b == this)) {
+        std::pair<MOVE, Board> x = std::make_pair(MOVE::UP, b);
+        validSlidesWithBoard.push_back(x);
+    }
+
+    Board c = Board(this);
+    c.slideDown();
+
+    if (!(c == this)) {
+        std::pair<MOVE, Board> x = std::make_pair(MOVE::DOWN, c);
+        validSlidesWithBoard.push_back(x);
+    }
+
+    Board d = Board(this);
+    d.slideLeft();
+
+    if (!(d == this)) {
+        std::pair<MOVE, Board> x = std::make_pair(MOVE::LEFT, d);
+        validSlidesWithBoard.push_back(x);
+    }
+
+    Board e = Board(this);
+    e.slideRight();
+
+    if (!(e == this)) {
+        std::pair<MOVE, Board> x = std::make_pair(MOVE::RIGHT, e);
+        validSlidesWithBoard.push_back(x);
+    }
+
+
+
+    return validSlidesWithBoard;
+};
+
+std::vector<std::pair<int, int>> Board::getPlaces(Tile::TileColor colorToConsider) {
+    std::vector<std::pair<int, int>> places;
+
+    for (int x = 1; x <= boardHeight; x++) {
+        for (int y = 1; y<= boardWidth; y++) {
+            if (isEmpty(x, y)) {
+                std::pair<int ,int> pair = std::make_pair(x, y);
+
+                places.push_back(pair);
+            }
+        }
+    }
+
+
+    return places;
+}
+
+
+
 // Equals
 bool Board::operator== (const Board &Ref) const {
 
+    for (int x = 0; x < boardHeight; x++) {
+        for (int y = 0; y < boardWidth; y++) {
+            if (Ref.board[x][y] == board[x][y]) {
+                return false;
+            }
+        }
+    }
 
 
 	return true;
