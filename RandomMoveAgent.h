@@ -8,18 +8,16 @@
 
 #include "Player.h"
 
-class RandomMoveAgent : Player {
+class RandomMoveAgent : public Player {
 public:
     RandomMoveAgent(Board b);
+    RandomMoveAgent();
 
 private:
-    virtual void handlePlaceTurn(std::string moveInfo) override;
-
-    virtual void handleMoveTurn(std::string moveInfo) override;
-
-    virtual void performPlaceTurn() override;
-
-    virtual void performMoveTurn() override;
+    void handlePlaceTurn(std::string moveInfo);
+    void handleMoveTurn(std::string moveInfo);
+    void performPlaceTurn();
+    void performMoveTurn();
 };
 
 

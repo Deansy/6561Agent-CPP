@@ -3,42 +3,53 @@
 //
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "CompetitionMain.h"
+#include "RandomMoveAgent.h"
 
 
 void CompetitionMain::gameLoop() {
-
-    currentBoard = Board();
+//    currentBoard = Board();
 
     currentMove = 1;
     previousStates = std::vector<Board>();
 
-    // TODO: Get input
-    // Scanner in = new Scanner(System.in);
-    // player = in.next();
-    std::cin >> player;
-
-    // TODO:
-    // currentPlayer = new DepthLimitedDFSAgent(currentBoard);
-
-    std::cerr << "I am player: " << player;
 
 
-    if (player == "A") {
+    //std::cin >> player;
+    //getline(std::cin, player);
+    char player[10];
+    std::cerr << "Test" << std::endl;
+
+    scanf("%s", &player);
+    std::cerr << "Test" << std::endl;
+
+
+
+    currentPlayer = new RandomMoveAgent();
+
+
+    //std::cerr << "I am player: " << player << std::endl;
+
+
+    if (strcmp(player, "A") == 0) {
         // place a tile
         performPlaceTurn();
     }
 
     while (true) {
-        std::string input;
+        char input[10];
+        scanf("%s",&input);
 
-        std::cin >> input;
+        //std::cerr << "Input = " << input <<  std::endl;
 
-        if (input == "Quit") {
+
+        if (strcmp(input, "Quit") == 0) {
             exit(0);
         }
 
-        if (input == "U"|| input == "D" || input == "L" || input == "R") {
+
+        if (strcmp(input, "U") == 0 || strcmp(input, "U") == 0 || strcmp(input, "U") == 0 || strcmp(input, "U") == 0) {
             handleMoveTurn(input);
         }
         else {
@@ -53,6 +64,8 @@ void CompetitionMain::gameLoop() {
         else {
             performMoveTurn();
         }
+
+        //std::cerr << "End loop"  << std::endl;
     }
 
 
@@ -64,21 +77,21 @@ void CompetitionMain::gameLoop() {
 
 void CompetitionMain::handlePlaceTurn(std::string moveInfo) {
 
+    currentMove++;
+    currentPlayer->handlePlaceTurn(moveInfo);
 }
 
 void CompetitionMain::handleMoveTurn(std::string moveInfo) {
-
+    currentMove++;
+    currentPlayer->handleMoveTurn(moveInfo);
 }
 
 void CompetitionMain::performPlaceTurn() {
-
+    currentMove++;
+    currentPlayer->performPlaceTurn();
 }
 
 void CompetitionMain::performMoveTurn() {
-
-}
-
-Tile::TileColor CompetitionMain::getTileColorForMove(int move) {
-    // TODO:
-    return Tile::TileColor::RED ;
+    currentMove++;
+    currentPlayer->performMoveTurn();
 }

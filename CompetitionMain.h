@@ -7,6 +7,7 @@
 
 
 #include "Board.h"
+#include "Player.h"
 #include <String>
 
 class CompetitionMain {
@@ -14,8 +15,8 @@ public:
     void gameLoop();
 
 private:
-    Board currentBoard;
-    std::string player;
+    //Board currentBoard;
+    //std::string player;
     int currentMove;
 
     std::vector<Board> previousStates;
@@ -30,9 +31,8 @@ private:
 
     void performMoveTurn();
 
-    static Tile::TileColor getTileColorForMove(int move);
 
-    //Player currentPlayer;
+    Player *currentPlayer;
 };
 
 

@@ -1,3 +1,6 @@
+#ifndef INC_6561AGENT_TILE_H
+#define INC_6561AGENT_TILE_H
+
 class Tile {
 
 public:
@@ -25,8 +28,6 @@ public:
 
 private:
 
-
-
-
-
 };
+
+#endif

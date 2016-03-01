@@ -5,6 +5,8 @@
 #include <set>
 #include <utility>
 
+#ifndef INC_6561AGENT_BOARD_H
+#define INC_6561AGENT_BOARD_H
 
 class Board {
 
@@ -52,3 +54,5 @@ private:
 	
 
 };
+
+#endif
