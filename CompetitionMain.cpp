@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "CompetitionMain.h"
 #include "RandomMoveAgent.h"
+#include "DepthLimitedDFSAgent.h"
 
 
 void CompetitionMain::gameLoop() {
@@ -26,7 +27,7 @@ void CompetitionMain::gameLoop() {
 
 
 
-    currentPlayer = new RandomMoveAgent();
+    currentPlayer = new DepthLimitedDFSAgent();
 
 
     //std::cerr << "I am player: " << player << std::endl;
@@ -49,7 +50,7 @@ void CompetitionMain::gameLoop() {
         }
 
 
-        if (strcmp(input, "U") == 0 || strcmp(input, "U") == 0 || strcmp(input, "U") == 0 || strcmp(input, "U") == 0) {
+        if (strcmp(input, "U") == 0 || strcmp(input, "D") == 0 || strcmp(input, "L") == 0 || strcmp(input, "R") == 0) {
             handleMoveTurn(input);
         }
         else {

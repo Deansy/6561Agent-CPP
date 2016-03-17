@@ -34,7 +34,11 @@ public:
 
 	//TODO: Implement
 	std::vector<std::pair<MOVE, Board>> getSlidesWithBoard();
-	std::vector<std::pair<int, int>> getPlaces(Tile::TileColor colorToConsider);
+	std::vector<std::pair<int, int>> getPlaces(Tile::TileColor colorToConsider, int placesToGet);
+
+	int getBoardScore();
+
+	Tile getTileAt(int x, int y);
 
 
 private:

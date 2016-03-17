@@ -6,6 +6,8 @@
 std::vector<Board::MOVE> Board::getSlides() {
 	std::vector <Board::MOVE> validSlides;
 
+
+
 	Board b = Board(this);
 	b.slideUp();
 
@@ -27,7 +29,8 @@ std::vector<Board::MOVE> Board::getSlides() {
 		validSlides.push_back(MOVE::LEFT);
 	}
 
-	Board e = Board(this);
+
+	Board e = new Board(this);
 	e.slideRight();
 
 	if (!(e == this)) {
@@ -114,7 +117,7 @@ void Board::slideDown() {
 		for (int y = 0; y < 4; y++) {
 			for (int x = 3; x >0; x--) {
 				if (boardCopy[x][y].value == 0) {
-					for (int k = x - 1; k >= 0; k++) {
+					for (int k = x - 1; k >= 0; k--) {
 						if (boardCopy[k][y].value != 0) {
 							boardCopy[x][y] = boardCopy[k][y];
 
@@ -396,7 +399,7 @@ std::vector<std::pair<Board::MOVE , Board>> Board::getSlidesWithBoard() {
     return validSlidesWithBoard;
 };
 
-std::vector<std::pair<int, int>> Board::getPlaces(Tile::TileColor colorToConsider) {
+std::vector<std::pair<int, int>> Board::getPlaces(Tile::TileColor colorToConsider, int placesToGet) {
     std::vector<std::pair<int, int>> places;
 
     for (int x = 1; x <= boardHeight; x++) {
@@ -409,9 +412,30 @@ std::vector<std::pair<int, int>> Board::getPlaces(Tile::TileColor colorToConside
         }
     }
 
+	if (placesToGet > 0) {
+
+		std::vector<std::pair<int, int>> v2(places.begin(), places.begin() + placesToGet);
+		return v2;
+	}
 
     return places;
 }
+
+int Board::getBoardScore() {
+	int total = 0;
+	for (int i = 0; i < boardWidth; i ++) {
+		for (int j = 0; j < boardHeight; j++) {
+			total += board[i][j].value;
+		}
+	}
+
+	return total;
+}
+
+Tile Board::getTileAt(int x, int y) {
+	return board[x][y];
+}
+
 
 
 
@@ -420,7 +444,7 @@ bool Board::operator== (const Board &Ref) const {
 
     for (int x = 0; x < boardHeight; x++) {
         for (int y = 0; y < boardWidth; y++) {
-            if (Ref.board[x][y] == board[x][y]) {
+            if (!(Ref.board[x][y] == board[x][y])) {
                 return false;
             }
         }
