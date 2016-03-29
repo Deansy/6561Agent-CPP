@@ -19,7 +19,7 @@ public:
     virtual void performPlaceTurn() = 0;
     virtual void performMoveTurn() = 0;
 
-    Tile::TileColor getTileColorForMove(int move) {
+    static Tile::TileColor getTileColorForMove(int move) {
         Tile::TileColor color = Tile::TileColor::EMPTY;
 
         int rotationID = move % 10;
@@ -37,8 +37,8 @@ public:
         return color;
     }
 
-protected:
     Board currentBoard;
+protected:
     std::string previousMove;
     int currentMove;
 };

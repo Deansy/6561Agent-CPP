@@ -10,6 +10,6 @@ set(SOURCE_FILES
     Board.cpp
     Board.h
     Tile.cpp
-    Tile.h CompetitionMain.cpp CompetitionMain.h Player.h RandomMoveAgent.cpp RandomMoveAgent.h DepthLimitedDFSAgent.cpp DepthLimitedDFSAgent.h)
+    Tile.h CompetitionMain.cpp CompetitionMain.h Player.h RandomMoveAgent.cpp RandomMoveAgent.h DepthLimitedDFSAgent.cpp DepthLimitedDFSAgent.h MCTSNode.cpp MCTSNode.h MonteCarloAgent.cpp MonteCarloAgent.h)
 
 add_executable(6561Agent ${SOURCE_FILES})

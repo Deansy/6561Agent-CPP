@@ -16,7 +16,10 @@ public:
 		LEFT, UP, DOWN, RIGHT
 	};
 
-	//std::set<int> placeTurns = { 1, 2, 3, 6, 7, 8 };
+	static std::set<int> placeTurns() {
+		std::set<int> placeTurns = { 1, 2, 3, 6, 7, 8 };
+		return placeTurns;
+	}
 
 	void placeTile(Tile::TileColor tileColor, int xPos, int yPos, int value);
 	void printBoard(bool errorPrint);
@@ -28,6 +31,8 @@ public:
 	static const int boardWidth = 4;
 	static const int boardHeight = 4;
 
+	int gameScore();
+
 	std::vector<Board::MOVE> getSlides();
 
 	void slideBoard(Board::MOVE m);
@@ -36,9 +41,39 @@ public:
 	std::vector<std::pair<MOVE, Board>> getSlidesWithBoard();
 	std::vector<std::pair<int, int>> getPlaces(Tile::TileColor colorToConsider, int placesToGet);
 
+
+	class NewStateData {
+    public:
+		int x = -1;
+		int y = -1;
+
+		Board::MOVE move;
+		Tile::TileColor color;
+
+
+		NewStateData() {
+			// Make the compiler happy
+		}
+
+		NewStateData(Board::MOVE move) {
+			this->move = move;
+		}
+		NewStateData(int x, int y, Tile::TileColor color) {
+			this->x = x;
+			this->y = y;
+			this->color = color;
+		}
+	};
+
+
+
+	std::vector<std::pair<Board, Board::NewStateData>> getNextStatesWithStateData(int currentMove);
+
 	int getBoardScore();
 
 	Tile getTileAt(int x, int y);
+
+
 
 
 private:

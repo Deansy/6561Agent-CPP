@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "Player.h"
 
 // TODO: Bring over all comments
 // TODO: Test
@@ -399,6 +400,17 @@ std::vector<std::pair<Board::MOVE , Board>> Board::getSlidesWithBoard() {
     return validSlidesWithBoard;
 };
 
+
+std::vector<std::pair<Board, Board::NewStateData>> Board::getNextStatesWithStateData(int currentMove) {
+	std::vector<std::pair<Board, NewStateData>> nextStates;
+
+
+	if (placeTurns().find((currentMove + 1) % 10) != placeTurns().end()) {
+		Tile::TileColor color = Player::getTileColorForMove((currentMove + 1) % 10);
+	}
+};
+
+
 std::vector<std::pair<int, int>> Board::getPlaces(Tile::TileColor colorToConsider, int placesToGet) {
     std::vector<std::pair<int, int>> places;
 
@@ -434,6 +446,20 @@ int Board::getBoardScore() {
 
 Tile Board::getTileAt(int x, int y) {
 	return board[x][y];
+}
+
+
+int Board::gameScore() {
+
+    int totalScore = 0;
+    for (int x = 0; x < boardWidth; x++){
+        for (int y = 0 ; y < boardHeight; y++) {
+            totalScore += this->board[x][y].value;
+        }
+    }
+
+    return totalScore;
+
 }
 
 

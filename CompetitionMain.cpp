@@ -7,6 +7,7 @@
 #include "CompetitionMain.h"
 #include "RandomMoveAgent.h"
 #include "DepthLimitedDFSAgent.h"
+#include "MonteCarloAgent.h"
 
 
 void CompetitionMain::gameLoop() {
@@ -27,7 +28,8 @@ void CompetitionMain::gameLoop() {
 
 
 
-    currentPlayer = new DepthLimitedDFSAgent();
+    currentPlayer = new MonteCarloAgent();
+    //currentPlayer = new DepthLimitedDFSAgent();
 
 
     //std::cerr << "I am player: " << player << std::endl;

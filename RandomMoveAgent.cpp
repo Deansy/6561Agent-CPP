@@ -9,7 +9,16 @@
 
 RandomMoveAgent::RandomMoveAgent(Board b) {
     currentBoard = b;
-    currentMove = 1;\
+    currentMove = 1;
+
+    std::cerr << "RMAgent Start" << std::endl;
+
+    srand(time(NULL));
+}
+
+RandomMoveAgent::RandomMoveAgent(Board b, int currentMove) {
+    currentBoard = b;
+    this->currentMove = currentMove;
 
     std::cerr << "RMAgent Start" << std::endl;
 

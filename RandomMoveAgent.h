@@ -11,9 +11,10 @@
 class RandomMoveAgent : public Player {
 public:
     RandomMoveAgent(Board b);
+    RandomMoveAgent(Board b, int currentMove);
     RandomMoveAgent();
 
-private:
+
     void handlePlaceTurn(std::string moveInfo);
     void handleMoveTurn(std::string moveInfo);
     void performPlaceTurn();
