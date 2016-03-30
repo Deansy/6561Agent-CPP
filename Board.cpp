@@ -74,9 +74,14 @@ void Board::placeTile(Tile::TileColor tileColor, int xPos, int yPos, int value) 
 
 }
 
+std::set<int> Board::placeTurns = { 1, 2, 3, 6, 7, 8 };
 
 Board::Board() {
-	for (int x = 0; x < boardWidth; x++) {
+
+
+
+
+    for (int x = 0; x < boardWidth; x++) {
 		for (int y = 0; y < boardWidth; y++) {
 			board[x][y] = Tile(Tile::TileColor::EMPTY, x, y, 0);
 		}
@@ -405,9 +410,39 @@ std::vector<std::pair<Board, Board::NewStateData>> Board::getNextStatesWithState
 	std::vector<std::pair<Board, NewStateData>> nextStates;
 
 
-	if (placeTurns().find((currentMove + 1) % 10) != placeTurns().end()) {
+    //std::cout << currentMove << std::endl;
+    static std::set<int> placeTurns = { 1, 2, 3, 6, 7, 8 };
+    bool isPlaceTurn = placeTurns.find((currentMove + 1) % 10) != placeTurns.end();
+	if (isPlaceTurn) {
 		Tile::TileColor color = Player::getTileColorForMove((currentMove + 1) % 10);
+        std::vector<std::pair<int, int>> places = getPlaces(color, 0);
+        for (int i = 0; i < places.size(); i++) {
+            std::pair<int, int> x = places[i];
+            Board b = Board(this);
+            b.placeTile(color, x.first, x.second, 1);
+
+            Board::NewStateData nsd = Board::NewStateData(x.first, x.second, color);
+            std::pair<Board, NewStateData> pair = std::make_pair(b, nsd);
+            nextStates.push_back(pair);
+        }
 	}
+    else {
+        std::vector<MOVE> slides = getSlides();
+        for (int i = 0; i < slides.size(); i++) {
+            MOVE x = slides[i];
+            Board b = Board(this);
+            b.slideBoard(x);
+
+            if (b.gameScore() != 0) {
+                NewStateData nsd = NewStateData(x);
+
+                std::pair<Board, NewStateData> pair = std::make_pair(b, nsd);
+                nextStates.push_back(pair);
+            }
+        }
+    }
+
+    return nextStates;
 };
 
 

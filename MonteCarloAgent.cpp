@@ -9,10 +9,10 @@ MonteCarloAgent::MonteCarloAgent(Board board) {
     currentMove = 1;
     currentBoard = board;
 
-    currentNode = MCTSNode();
+    currentNode = new MCTSNode();
 
     for (int i = 0; i < 1000; i++) {
-        currentNode.selectAction();
+        currentNode->selectAction();
     }
 }
 
@@ -20,10 +20,10 @@ MonteCarloAgent::MonteCarloAgent() {
     currentMove = 1;
     currentBoard = Board();
 
-    currentNode = MCTSNode();
+    currentNode = new MCTSNode();
 
     for (int i = 0; i < 1000; i++) {
-        currentNode.selectAction();
+        currentNode->selectAction();
     }
 }
 
@@ -40,7 +40,7 @@ void MonteCarloAgent::handlePlaceTurn(std::string moveInfo) {
     currentMove++;
 
 
-    currentNode = currentNode.getChildNodeWithBoard(currentBoard);
+    currentNode = currentNode->getChildNodeWithBoard(currentBoard);
 }
 
 void MonteCarloAgent::handleMoveTurn(std::string moveInfo) {
@@ -60,24 +60,24 @@ void MonteCarloAgent::handleMoveTurn(std::string moveInfo) {
 
     currentMove++;
 
-    currentNode = currentNode.getChildNodeWithBoard(currentBoard);
+    currentNode = currentNode->getChildNodeWithBoard(currentBoard);
 }
 
 void MonteCarloAgent::performPlaceTurn() {
     // Every 10 moves
     if (currentMove % 10 == 0) {
         for (int i = 0; i < 200; i++) {
-            currentNode.selectAction();
+            currentNode->selectAction();
         }
     }
 
-    if (currentNode.children.empty()) {
-        currentNode.expand();
+    if (currentNode->children.empty()) {
+        currentNode->expand();
     }
 
-    MCTSNode nextNode = currentNode.getMostVisitedChild();
+    MCTSNode* nextNode = currentNode->getMostVisitedChild();
 
-    Board::NewStateData nsd = nextNode.stateData;
+    Board::NewStateData nsd = nextNode->stateData;
 
     currentBoard.placeTile(nsd.color, nsd.x, nsd.y, 1);
     printf("%d%d\n",nsd.x,nsd.y);
@@ -94,16 +94,16 @@ void MonteCarloAgent::performMoveTurn() {
     // Every 10 moves
     if (currentMove % 10 == 0) {
         for (int i = 0; i < 200; i++) {
-            currentNode.selectAction();
+            currentNode->selectAction();
         }
     }
 
-    if (currentNode.children.empty()) {
-        currentNode.expand();
+    if (currentNode->children.empty()) {
+        currentNode->expand();
     }
 
-    MCTSNode nextNode = currentNode.getMostVisitedChild();
-    Board::NewStateData nsd = nextNode.stateData;
+    MCTSNode* nextNode = currentNode->getMostVisitedChild();
+    Board::NewStateData nsd = nextNode->stateData;
 
     currentBoard.slideBoard(nsd.move);
 

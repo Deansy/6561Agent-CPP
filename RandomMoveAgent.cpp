@@ -11,7 +11,7 @@ RandomMoveAgent::RandomMoveAgent(Board b) {
     currentBoard = b;
     currentMove = 1;
 
-    std::cerr << "RMAgent Start" << std::endl;
+    //std::cerr << "RMAgent Start" << std::endl;
 
     srand(time(NULL));
 }
@@ -20,7 +20,7 @@ RandomMoveAgent::RandomMoveAgent(Board b, int currentMove) {
     currentBoard = b;
     this->currentMove = currentMove;
 
-    std::cerr << "RMAgent Start" << std::endl;
+    //std::cerr << "RMAgent Start" << std::endl;
 
     srand(time(NULL));
 }
@@ -71,7 +71,7 @@ void RandomMoveAgent::handleMoveTurn(std::string moveInfo) {
 }
 
 void RandomMoveAgent::performPlaceTurn() {
-    std::cerr << "Perform Place Turn: " <<  currentMove << std::endl;
+    //std::cerr << "Perform Place Turn: " <<  currentMove << std::endl;
     std::cerr.flush();
 
     int x = rand() % 4;
@@ -86,7 +86,7 @@ void RandomMoveAgent::performPlaceTurn() {
         if (move != previousMove) {
             currentBoard.placeTile(Player::getTileColorForMove(currentMove), x , y, 1);
 
-            printf("%s\n", move.c_str());
+            //printf("%s\n", move.c_str());
             fflush(stdout);
 
 
@@ -94,19 +94,19 @@ void RandomMoveAgent::performPlaceTurn() {
         }
         else {
             // Duplicate Move
-            std::cerr << "1" << std::endl;
-            performPlaceTurn();
+            //std::cerr << "1" << std::endl;
+            //performPlaceTurn();
         }
     }
     else {
         // Retying
-        std::cerr << "2" << std::endl;
-        performPlaceTurn();
+        //std::cerr << "2" << std::endl;
+        //performPlaceTurn();
     }
 }
 
 void RandomMoveAgent::performMoveTurn() {
-    std::cerr << "Perform Move Turn: " << currentMove << std::endl;
+    //std::cerr << "Perform Move Turn: " << currentMove << std::endl;
     int n = rand() % 4;
 
 
@@ -136,8 +136,8 @@ void RandomMoveAgent::performMoveTurn() {
 
     if (strcmp(move.c_str(), previousMove.c_str()) == 0) {
         // retying
-        std::cerr << "Duplicate MOVE 1" << std::endl;
-        performMoveTurn();
+        //std::cerr << "Duplicate MOVE 1" << std::endl;
+        //performMoveTurn();
     }
 
 
@@ -145,40 +145,40 @@ void RandomMoveAgent::performMoveTurn() {
     else {
         Board beforeMove(currentBoard);
 
-        std::cerr << "123 " << move  << std::endl;
+        //std::cerr << "123 " << move  << std::endl;
 
         if (strcmp(move.c_str(), "U") == 0){
             currentBoard.slideBoard(Board::MOVE::UP);
-            std::cerr << "SLIDE U" <<  std::endl;
+            //std::cerr << "SLIDE U" <<  std::endl;
         }
         else if (strcmp(move.c_str(), "D") == 0) {
             currentBoard.slideBoard(Board::MOVE::DOWN);
-            std::cerr << "SLIDE D" <<  std::endl;
+            //std::cerr << "SLIDE D" <<  std::endl;
         }
         else if (strcmp(move.c_str(), "L") == 0) {
             currentBoard.slideBoard(Board::MOVE::LEFT);
-            std::cerr << "SLIDE L" <<  std::endl;
+            //std::cerr << "SLIDE L" <<  std::endl;
         }
         else if (strcmp(move.c_str(), "R") == 0) {
             currentBoard.slideBoard(Board::MOVE::RIGHT);
-            std::cerr << "SLIDE R" <<  std::endl;
+            //std::cerr << "SLIDE R" <<  std::endl;
         }
         else {
-            std::cerr << "XX" << move.c_str() << std::endl;
+            //std::cerr << "XX" << move.c_str() << std::endl;
         }
 
-        std::cerr << "345" << std::endl;
+        //std::cerr << "345" << std::endl;
 
-        if (currentBoard == beforeMove) {
+        //if (currentBoard == beforeMove) {
             // Duplicate move
-            std::cerr << "Duplicate MOVE 2" << std::endl;
-            performMoveTurn();
-        }
-        else {
-            std::cerr << currentMove << " : " << move.c_str() << std::endl;
-            printf("%s\n", move.c_str());
+            //std::cerr << "Duplicate MOVE 2" << std::endl;
+            //performMoveTurn();
+        //}
+        //else {
+            //std::cerr << currentMove << " : " << move.c_str() << std::endl;
+            //printf("%s\n", move.c_str());
             fflush(stdout);
             currentMove++;
-        }
+        //}
     }
 }

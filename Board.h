@@ -13,13 +13,13 @@ class Board {
 public:
 
 	enum MOVE {
-		LEFT, UP, DOWN, RIGHT
+		LEFT, UP, DOWN, RIGHT, NONE
 	};
 
-	static std::set<int> placeTurns() {
-		std::set<int> placeTurns = { 1, 2, 3, 6, 7, 8 };
-		return placeTurns;
-	}
+
+    static std::set<int> placeTurns;
+
+
 
 	void placeTile(Tile::TileColor tileColor, int xPos, int yPos, int value);
 	void printBoard(bool errorPrint);
@@ -37,7 +37,7 @@ public:
 
 	void slideBoard(Board::MOVE m);
 
-	//TODO: Implement
+
 	std::vector<std::pair<MOVE, Board>> getSlidesWithBoard();
 	std::vector<std::pair<int, int>> getPlaces(Tile::TileColor colorToConsider, int placesToGet);
 
@@ -47,8 +47,8 @@ public:
 		int x = -1;
 		int y = -1;
 
-		Board::MOVE move;
-		Tile::TileColor color;
+		Board::MOVE move = Board::MOVE::NONE;
+		Tile::TileColor color = Tile::TileColor::EMPTY;
 
 
 		NewStateData() {

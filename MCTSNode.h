@@ -22,12 +22,12 @@ class MCTSNode {
 
 public:
     Board::NewStateData stateData;
-    std::vector<MCTSNode> children;
+    std::vector<MCTSNode*> children;
     MCTSNode();
-    MCTSNode(Board b, int currentMove);
+    MCTSNode(Board b, int cMove);
 
-    MCTSNode getMostVisitedChild();
-    MCTSNode getChildNodeWithBoard(Board b);
+    MCTSNode* getMostVisitedChild();
+    MCTSNode* getChildNodeWithBoard(Board b);
 
     void selectAction();
     void expand();

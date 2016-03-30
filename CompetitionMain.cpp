@@ -21,10 +21,10 @@ void CompetitionMain::gameLoop() {
     //std::cin >> player;
     //getline(std::cin, player);
     char player[10];
-    std::cerr << "Test" << std::endl;
+    //std::cerr << "Test" << std::endl;
 
     scanf("%s", &player);
-    std::cerr << "Test" << std::endl;
+    //std::cerr << "Test" << std::endl;
 
 
 

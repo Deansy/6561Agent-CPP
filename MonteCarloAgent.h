@@ -16,7 +16,7 @@ public:
     Board currentBoard;
     std::string previousMove;
 
-    MCTSNode currentNode;
+    MCTSNode* currentNode;
 
     MonteCarloAgent();
     MonteCarloAgent(Board board);
